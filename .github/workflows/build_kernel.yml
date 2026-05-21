@@ -140,7 +140,7 @@ jobs:
 
       - name: Download CI Core
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download ci-core-latest -p "kokuban_ci_core"
           chmod +x kokuban_ci_core
@@ -155,7 +155,7 @@ jobs:
           ref: ${{ env.BRANCH_TARGET }}
           path: kernel_source
           submodules: recursive
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
 
       - name: Setup sccache
         uses: hendrikmuhs/ccache-action@v1.2.23
@@ -172,7 +172,7 @@ jobs:
 
       - name: Build and Release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           ARGS=(--project ${{ env.PROJECT }} --branch ${{ env.VARIANT }} --do-release ${{ env.DO_RELEASE }})
